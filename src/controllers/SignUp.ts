@@ -16,8 +16,5 @@ export const signUp = async (req: Request, res: Response) => {
     },
   });
 
-  const allUsers = await prisma.user.findMany();
-  console.log(allUsers);
-
   res.json({ msg: "user created" });
 };
