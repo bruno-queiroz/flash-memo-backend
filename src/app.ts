@@ -2,6 +2,7 @@ import express from "express";
 import cors, { CorsOptions } from "cors";
 import { PrismaClient } from "@prisma/client";
 import { signUp } from "./controllers/SignUp";
+import { signIn } from "./controllers/SignIn";
 
 export const prisma = new PrismaClient();
 const app = express();
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use(cors(corsOptions));
 
 app.post("/sign-up", signUp);
+app.post("/sign-in", signIn);
 
 app.listen(3000, () => {
   console.log("running");
