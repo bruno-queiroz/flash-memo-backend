@@ -1,0 +1,40 @@
+import { Request, Response } from "express";
+import jwt from "jsonwebtoken";
+import cookie from "cookie";
+import bcrypt from "bcrypt";
+import { prisma } from "../app";
+
+interface ClientBodyRequest {
+  name: string;
+  password: string;
+}
+
+export const signIn = async (req: Request, res: Response) => {
+  const userSignInData: ClientBodyRequest = req.body;
+
+  try {
+    const userFoundOnDatabase = await prisma.user.findUniqueOrThrow({
+      where: {
+        name: userSignInData.name,
+      },
+    });
+
+    const matchUserPassword = await bcrypt.compare(
+      userSignInData.password,
+      userFoundOnDatabase.password
+    );
+
+    if (!matchUserPassword) {
+      res.json({ isOk: false, msg: "Password Incorrect", data: null });
+      return;
+    }
+
+    res.json({
+      isOk: true,
+      msg: "Logging to user account",
+      data: { name: userFoundOnDatabase.name, id: userFoundOnDatabase.id },
+    });
+  } catch (err) {
+    res.json({ isOk: false, msg: "User not found", data: null });
+  }
+};
