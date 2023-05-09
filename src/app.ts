@@ -4,6 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import { signUp } from "./controllers/SignUp";
 import { signIn } from "./controllers/SignIn";
 import cookieParser from "cookie-parser";
+import dotenv from "dotenv";
 
 export const prisma = new PrismaClient();
 const app = express();
@@ -23,6 +24,7 @@ const corsOptions: CorsOptions = {
 app.use(express.json());
 app.use(cors(corsOptions));
 app.use(cookieParser());
+dotenv.config();
 
 app.post("/sign-up", signUp);
 app.post("/sign-in", signIn);
