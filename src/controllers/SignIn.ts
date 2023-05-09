@@ -11,7 +11,6 @@ interface ClientBodyRequest {
 
 export const signIn = async (req: Request, res: Response) => {
   const userSignInData: ClientBodyRequest = req.body;
-
   try {
     const userFoundOnDatabase = await prisma.user.findUniqueOrThrow({
       where: {
@@ -28,6 +27,14 @@ export const signIn = async (req: Request, res: Response) => {
       res.json({ isOk: false, msg: "Password Incorrect", data: null });
       return;
     }
+
+    const jwtToken = jwt.sign(
+      {
+        data: userFoundOnDatabase.name,
+      },
+      process.env.JWT_SECRET || "",
+      { expiresIn: "1m" }
+    );
 
     res.json({
       isOk: true,
