@@ -1,8 +1,8 @@
 import express from "express";
 import cors, { CorsOptions } from "cors";
 import { PrismaClient } from "@prisma/client";
-import { signUp } from "./controllers/SignUp";
-import { signIn } from "./controllers/SignIn";
+import { signUp } from "./controllers/signUp";
+import { signIn } from "./controllers/signIn";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 
