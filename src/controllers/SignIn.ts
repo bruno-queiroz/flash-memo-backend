@@ -35,6 +35,10 @@ export const signIn = async (req: Request, res: Response) => {
       process.env.JWT_SECRET || "",
       { expiresIn: "1m" }
     );
+    res.cookie("jwt-token", jwtToken, {
+      httpOnly: true,
+      maxAge: 60 * 60 * 24 * 7, // 1 week
+    });
 
     res.json({
       isOk: true,
