@@ -3,11 +3,12 @@ import cors, { CorsOptions } from "cors";
 import { PrismaClient } from "@prisma/client";
 import { signUp } from "./controllers/SignUp";
 import { signIn } from "./controllers/SignIn";
+import cookieParser from "cookie-parser";
 
 export const prisma = new PrismaClient();
 const app = express();
 
-const allowedUrls = ["http://localhost:5173"];
+const allowedUrls = ["http://localhost:5173", "http://localhost:3000"];
 const corsOptions: CorsOptions = {
   origin: function (origin, callback) {
     if (allowedUrls.indexOf(origin || "") !== -1) {
@@ -21,6 +22,7 @@ const corsOptions: CorsOptions = {
 
 app.use(express.json());
 app.use(cors(corsOptions));
+app.use(cookieParser());
 
 app.post("/sign-up", signUp);
 app.post("/sign-in", signIn);
