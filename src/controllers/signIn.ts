@@ -30,10 +30,11 @@ export const signIn = async (req: Request, res: Response) => {
 
     const jwtToken = jwt.sign(
       {
-        data: userFoundOnDatabase.name,
+        userName: userFoundOnDatabase.name,
+        userId: userFoundOnDatabase.id,
       },
       process.env.JWT_SECRET || "",
-      { expiresIn: "1m" }
+      { expiresIn: "10m" }
     );
     res.cookie("jwt-token", jwtToken, {
       httpOnly: true,
