@@ -4,7 +4,9 @@ import { PrismaClient } from "@prisma/client";
 import { signUp } from "./controllers/signUp";
 import { signIn } from "./controllers/signIn";
 import cookieParser from "cookie-parser";
+import { jwtAuth } from "./middlewares/jwtAuth";
 import dotenv from "dotenv";
+import { createDeck } from "./controllers/createDeck";
 
 export const prisma = new PrismaClient();
 const app = express();
@@ -28,6 +30,7 @@ dotenv.config();
 
 app.post("/sign-up", signUp);
 app.post("/sign-in", signIn);
+app.post("/create-deck", jwtAuth, createDeck);
 
 app.listen(3000, () => {
   console.log("running");
