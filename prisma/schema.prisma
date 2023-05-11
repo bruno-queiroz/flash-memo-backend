@@ -24,4 +24,16 @@ model Deck {
   createdAt DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id])
   userId    String
+  cards     Card[]
+}
+
+model Card {
+  id              String   @id @default(cuid())
+  front           String   @unique
+  back            String
+  createdAt       DateTime @default(now())
+  reviewAt        DateTime
+  reviewAwaitTime Int
+  deck            Deck     @relation(fields: [deckId], references: [id])
+  deckId          String
 }
