@@ -28,12 +28,13 @@ model Deck {
 }
 
 model Card {
-  id              String   @id @default(cuid())
-  front           String   @unique
+  id              String    @id @default(cuid())
+  front           String    @unique
   back            String
-  createdAt       DateTime @default(now())
-  reviewAt        DateTime
-  reviewAwaitTime Int
-  deck            Deck     @relation(fields: [deckId], references: [id])
+  createdAt       DateTime  @default(now())
+  reviewAt        DateTime?
+  reviewAwaitTime Int       @default(0)
+  deck            Deck      @relation(fields: [deckId], references: [id])
   deckId          String
+  wasCardReseted  Boolean   @default(false)
 }
