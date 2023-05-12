@@ -1,0 +1,39 @@
+import { Request, Response } from "express";
+import jwt from "jsonwebtoken";
+import { prisma } from "../app";
+import { Prisma } from "@prisma/client";
+
+interface CardBodyRequest {
+  deckId: string;
+  front: string;
+  back: string;
+}
+
+export const createCard = async (req: Request, res: Response) => {
+  const newCardData: CardBodyRequest = req.body;
+
+  try {
+    await prisma.card.create({
+      data: {
+        front: newCardData?.front,
+        back: newCardData?.back,
+        deckId: newCardData?.deckId,
+      },
+    });
+
+    res.json({ isOk: true, mgs: "Card Created", data: null });
+  } catch (err) {
+    console.log(err);
+    if (err instanceof Prisma.PrismaClientKnownRequestError) {
+      if (err.code === "P2002") {
+        res.json({
+          isOk: false,
+          msg: "You already have this card",
+          data: null,
+        });
+      }
+    } else {
+      res.json({ isOk: false, mgs: "Something went wrong", data: null });
+    }
+  }
+};
