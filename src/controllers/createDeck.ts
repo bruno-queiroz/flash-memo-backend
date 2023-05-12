@@ -27,9 +27,9 @@ export const createDeck = async (req: Request, res: Response) => {
           msg: "You already have a deck with this name",
           data: null,
         });
-      } else {
-        res.json({ isOk: false, msg: "Something went wrong", data: null });
       }
+    } else {
+      res.json({ isOk: false, msg: "Something went wrong", data: null });
     }
   }
 };
