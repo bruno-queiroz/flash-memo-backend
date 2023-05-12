@@ -8,6 +8,7 @@ import { jwtAuth } from "./middlewares/jwtAuth";
 import dotenv from "dotenv";
 import { createDeck } from "./controllers/createDeck";
 import { getDecks } from "./controllers/getDecks";
+import { createCard } from "./controllers/createCard";
 
 export const prisma = new PrismaClient();
 const app = express();
@@ -32,6 +33,7 @@ dotenv.config();
 app.post("/sign-up", signUp);
 app.post("/sign-in", signIn);
 app.post("/create-deck", jwtAuth, createDeck);
+app.post("/create-card", jwtAuth, createCard);
 app.get("/get-decks", jwtAuth, getDecks);
 
 app.listen(3000, () => {
