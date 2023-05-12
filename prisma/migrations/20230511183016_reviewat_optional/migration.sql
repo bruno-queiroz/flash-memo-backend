@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Card" ALTER COLUMN "reviewAt" DROP NOT NULL,
+ALTER COLUMN "reviewAwaitTime" SET DEFAULT 0;
