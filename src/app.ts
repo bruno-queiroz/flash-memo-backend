@@ -9,6 +9,7 @@ import dotenv from "dotenv";
 import { createDeck } from "./controllers/createDeck";
 import { getDecks } from "./controllers/getDecks";
 import { createCard } from "./controllers/createCard";
+import { studyDeck } from "./controllers/studyDeck";
 
 export const prisma = new PrismaClient();
 const app = express();
@@ -35,6 +36,7 @@ app.post("/sign-in", signIn);
 app.post("/create-deck", jwtAuth, createDeck);
 app.post("/create-card", jwtAuth, createCard);
 app.get("/get-decks", jwtAuth, getDecks);
+app.get("/study-deck/:deckName", studyDeck);
 
 app.listen(3000, () => {
   console.log("running");
