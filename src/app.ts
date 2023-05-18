@@ -36,7 +36,7 @@ app.post("/sign-in", signIn);
 app.post("/create-deck", jwtAuth, createDeck);
 app.post("/create-card", jwtAuth, createCard);
 app.get("/get-decks", jwtAuth, getDecks);
-app.get("/study-deck/:deckName", studyDeck);
+app.get("/study-deck/:deckName", jwtAuth, studyDeck);
 
 app.listen(3000, () => {
   console.log("running");
