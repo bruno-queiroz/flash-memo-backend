@@ -40,6 +40,7 @@ app.post("/create-card", jwtAuth, createCard);
 app.get("/get-decks", jwtAuth, getDecks);
 app.get("/study-deck/:deckName", jwtAuth, studyDeck);
 app.patch("/patch-card-dates/:cardId", jwtAuth, patchCardDates);
+app.get("/search-cards/:deckId/:cardQuery", jwtAuth, searchCard);
 
 app.listen(3000, () => {
   console.log("running");
