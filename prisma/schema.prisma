@@ -29,7 +29,7 @@ model Deck {
 
 model Card {
   id              String    @id @default(cuid())
-  front           String    @unique
+  front           String
   back            String
   createdAt       DateTime  @default(now())
   reviewAt        DateTime?
@@ -37,4 +37,6 @@ model Card {
   deck            Deck      @relation(fields: [deckId], references: [id])
   deckId          String
   wasCardReseted  Boolean   @default(false)
+
+  @@unique([deckId, front], name: "UniqueDeckFront")
 }
