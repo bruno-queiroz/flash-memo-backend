@@ -21,7 +21,7 @@ export const createCard = async (req: Request, res: Response) => {
       },
     });
 
-    res.json({ isOk: true, mgs: "Card Created", data: null });
+    res.json({ isOk: true, msg: "Card Created", data: null });
   } catch (err) {
     console.log(err);
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
@@ -33,7 +33,7 @@ export const createCard = async (req: Request, res: Response) => {
         });
       }
     } else {
-      res.json({ isOk: false, mgs: "Something went wrong", data: null });
+      res.json({ isOk: false, msg: "Something went wrong", data: null });
     }
   }
 };
