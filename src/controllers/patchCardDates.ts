@@ -1,8 +1,5 @@
 import { Request, Response } from "express";
 import { prisma } from "../app";
-import { Prisma } from "@prisma/client";
-import { getCardsExpired } from "../utils/getCardsExpired";
-import { countCardAmountGroups } from "../utils/countCardAmountGroups";
 
 export interface BodyRequest {
   reviewAt: null | Date;
