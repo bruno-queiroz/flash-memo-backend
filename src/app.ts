@@ -13,6 +13,7 @@ import { studyDeck } from "./controllers/studyDeck";
 import { patchCardDates } from "./controllers/patchCardDates";
 import { searchCard } from "./controllers/searchCard";
 import { getSingleCard } from "./controllers/getSingleCard";
+import { patchCardContent } from "./controllers/patchCardContent";
 
 export const prisma = new PrismaClient();
 const app = express();
@@ -41,6 +42,7 @@ app.post("/create-card", jwtAuth, createCard);
 app.get("/get-decks", jwtAuth, getDecks);
 app.get("/study-deck/:deckName", jwtAuth, studyDeck);
 app.patch("/patch-card-dates/:cardId", jwtAuth, patchCardDates);
+app.patch("/patch-card-content/:cardId", jwtAuth, patchCardContent);
 app.get("/search-cards/:deckId/:cardQuery", jwtAuth, searchCard);
 app.get("/get-single-card/:cardId", jwtAuth, getSingleCard);
 
