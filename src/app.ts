@@ -15,6 +15,7 @@ import { searchCard } from "./controllers/searchCard";
 import { getSingleCard } from "./controllers/getSingleCard";
 import { patchCardContent } from "./controllers/patchCardContent";
 import { deleteDeck } from "./controllers/deleteDeck";
+import { deleteCard } from "./controllers/deleteCard";
 
 export const prisma = new PrismaClient();
 const app = express();
@@ -47,6 +48,7 @@ app.patch("/patch-card-content/:cardId", jwtAuth, patchCardContent);
 app.get("/search-cards/:deckId/:cardQuery", jwtAuth, searchCard);
 app.get("/get-single-card/:cardId", jwtAuth, getSingleCard);
 app.delete("/delete-deck/:deckId", jwtAuth, deleteDeck);
+app.delete("/delete-card/:cardId", jwtAuth, deleteCard);
 
 app.listen(3000, () => {
   console.log("running");
