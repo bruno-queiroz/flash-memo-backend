@@ -10,7 +10,7 @@ interface DeckBodyRequest {
   userId: string;
 }
 
-export const createDeck = async (req: Request, res: Response) => {
+export const postDeck = async (req: Request, res: Response) => {
   const userNewDeckData: DeckBodyRequest = req.body;
 
   try {
