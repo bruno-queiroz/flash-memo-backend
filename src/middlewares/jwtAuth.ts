@@ -20,6 +20,6 @@ export const jwtAuth = (req: Request, res: Response, next: NextFunction) => {
 
     next();
   } catch (err) {
-    res.json({ isOk: false, msg: "jwt expired", data: null });
+    res.json({ isOk: false, msg: "Session expired", data: null });
   }
 };
