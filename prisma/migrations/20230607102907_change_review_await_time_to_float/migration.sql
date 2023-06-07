@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Card" ALTER COLUMN "reviewAwaitTime" SET DEFAULT 0,
+ALTER COLUMN "reviewAwaitTime" SET DATA TYPE DOUBLE PRECISION;

@@ -33,7 +33,7 @@ model Card {
   back            String
   createdAt       DateTime  @default(now())
   reviewAt        DateTime?
-  reviewAwaitTime Int       @default(0)
+  reviewAwaitTime Float     @default(0)
   deck            Deck      @relation(fields: [deckId], references: [id])
   deckId          String
   wasCardReseted  Boolean   @default(false)
