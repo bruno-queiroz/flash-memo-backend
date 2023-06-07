@@ -17,6 +17,7 @@ import { patchCardContent } from "./controllers/patchCardContent";
 import { deleteDeck } from "./controllers/deleteDeck";
 import { deleteCard } from "./controllers/deleteCard";
 import { getLogOut } from "./controllers/getLogOut";
+import { patchRenameDeck } from "./controllers/patchRenameDeck";
 
 export const prisma = new PrismaClient();
 const app = express();
@@ -51,6 +52,7 @@ app.get("/get-log-out", getLogOut);
 
 app.patch("/patch-card-dates/:cardId", jwtAuth, patchCardDates);
 app.patch("/patch-card-content/:cardId", jwtAuth, patchCardContent);
+app.patch("/rename-deck/:deckId", jwtAuth, patchRenameDeck);
 
 app.delete("/delete-deck/:deckId", jwtAuth, deleteDeck);
 app.delete("/delete-card/:cardId", jwtAuth, deleteCard);
