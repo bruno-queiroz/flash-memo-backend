@@ -20,6 +20,9 @@ export const jwtAuth = (req: Request, res: Response, next: NextFunction) => {
 
     next();
   } catch (err) {
+    res.cookie("is-user-logged", false, {
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
+    });
     res.json({ isOk: false, msg: "Session expired", data: null });
   }
 };
