@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import cookie from "cookie";
 import bcrypt from "bcrypt";
 import { prisma } from "../app";
 import { Prisma } from "@prisma/client";
@@ -24,11 +23,15 @@ export const signUp = async (req: Request, res: Response) => {
         userId: newUser.id,
       },
       process.env.JWT_SECRET || "",
-      { expiresIn: "10m" }
+      { expiresIn: "7d" }
     );
     res.cookie("jwt-token", jwtToken, {
       httpOnly: true,
       maxAge: 60 * 60 * 24 * 7, // 1 week
+    });
+
+    res.cookie("is-user-logged", true, {
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
     });
 
     res.json({ isOk: true, msg: "User Created", data: null });
