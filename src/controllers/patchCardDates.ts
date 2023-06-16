@@ -23,7 +23,11 @@ export const patchCardDates = async (req: Request, res: Response) => {
         wasCardReseted,
       },
     });
-    res.json({ isOk: true, msg: "Patched successfully", data: null });
+    res.json({
+      isOk: true,
+      msg: "Card dates Patched successfully",
+      data: null,
+    });
   } catch (err) {
     res.json({ isOk: false, msg: "Failed to patch dates", data: null });
   }
