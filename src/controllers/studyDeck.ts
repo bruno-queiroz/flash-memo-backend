@@ -14,7 +14,6 @@ export const studyDeck = async (req: Request, res: Response) => {
     const expiredCards = deck?.cards.filter(getCardsExpired);
     res.json({ isOk: true, msg: "Cards Found", data: expiredCards });
   } catch (err) {
-    console.log(err);
     res.json({ isOk: false, msg: "Something went wrong", data: null });
   }
 };
