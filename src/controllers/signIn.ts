@@ -33,7 +33,7 @@ export const signIn = async (req: Request, res: Response) => {
         userId: userFoundOnDatabase.id,
       },
       process.env.JWT_SECRET || "",
-      { expiresIn: "10s" }
+      { expiresIn: "7d" }
     );
     res.cookie("jwt-token", jwtToken, {
       httpOnly: true,
@@ -41,7 +41,7 @@ export const signIn = async (req: Request, res: Response) => {
     });
 
     res.cookie("is-user-logged", true, {
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
+      maxAge: 365 * 24 * 60 * 60 * 1000, // 1 year
     });
 
     res.json({

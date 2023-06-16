@@ -31,7 +31,7 @@ export const signUp = async (req: Request, res: Response) => {
     });
 
     res.cookie("is-user-logged", true, {
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
+      maxAge: 365 * 24 * 60 * 60 * 1000, // 1 year
     });
 
     res.json({ isOk: true, msg: "User Created", data: null });
