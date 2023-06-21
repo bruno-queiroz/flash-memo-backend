@@ -18,9 +18,11 @@ import { deleteDeck } from "./controllers/deleteDeck";
 import { deleteCard } from "./controllers/deleteCard";
 import { getLogOut } from "./controllers/getLogOut";
 import { patchRenameDeck } from "./controllers/patchRenameDeck";
+dotenv.config();
 
 export const prisma = new PrismaClient();
 const app = express();
+const port = process.env.PORT || 3000;
 
 const allowedUrls = ["http://localhost:5173", "http://localhost:3000"];
 const corsOptions: CorsOptions = {
@@ -37,7 +39,6 @@ const corsOptions: CorsOptions = {
 app.use(express.json());
 app.use(cors(corsOptions));
 app.use(cookieParser());
-dotenv.config();
 
 app.post("/sign-up", signUp);
 app.post("/sign-in", signIn);
@@ -57,6 +58,6 @@ app.patch("/rename-deck/:deckId", jwtAuth, patchRenameDeck);
 app.delete("/delete-deck/:deckId", jwtAuth, deleteDeck);
 app.delete("/delete-card/:cardId", jwtAuth, deleteCard);
 
-app.listen(3000, () => {
+app.listen(port, () => {
   console.log("running");
 });
