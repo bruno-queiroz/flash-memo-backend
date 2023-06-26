@@ -38,10 +38,14 @@ export const signIn = async (req: Request, res: Response) => {
     res.cookie("jwt-token", jwtToken, {
       httpOnly: true,
       maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
+      sameSite: "none",
+      secure: true,
     });
 
     res.cookie("is-user-logged", true, {
       maxAge: 365 * 24 * 60 * 60 * 1000, // 1 year
+      sameSite: "none",
+      secure: true,
     });
 
     res.json({
