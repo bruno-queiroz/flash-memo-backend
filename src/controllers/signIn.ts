@@ -42,12 +42,6 @@ export const signIn = async (req: Request, res: Response) => {
       secure: true,
     });
 
-    res.cookie("is-user-logged", true, {
-      maxAge: 365 * 24 * 60 * 60 * 1000, // 1 year
-      sameSite: "none",
-      secure: true,
-    });
-
     res.json({
       isOk: true,
       msg: "Logged to user account",
