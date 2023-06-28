@@ -24,7 +24,7 @@ export const prisma = new PrismaClient();
 const app = express();
 const port = process.env.PORT || 3000;
 
-const allowedUrls = ["http://localhost:5173", "http://localhost:3000"];
+const allowedUrls = ["http://localhost:5173", "https://flash-memo.vercel.app"];
 const corsOptions: CorsOptions = {
   origin: function (origin, callback) {
     if (allowedUrls.indexOf(origin || "") !== -1) {
