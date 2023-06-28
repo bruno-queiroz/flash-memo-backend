@@ -10,6 +10,8 @@ type CustomJwtPayload = string | (jwt.JwtPayload & CustomPayloadData);
 
 export const jwtAuth = (req: Request, res: Response, next: NextFunction) => {
   const jwtToken = req.cookies["jwt-token"];
+  const wasUserLogged = jwtToken ? true : false;
+
   try {
     const decoded: CustomJwtPayload = jwt.verify(
       jwtToken,
@@ -20,9 +22,11 @@ export const jwtAuth = (req: Request, res: Response, next: NextFunction) => {
 
     next();
   } catch (err) {
-    res.cookie("is-user-logged", false, {
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
+    res.json({
+      isOk: false,
+      msg: "Session expired",
+      data: jwtToken,
+      wasUserLogged,
     });
-    res.json({ isOk: false, msg: "Session expired", data: jwtToken });
   }
 };
