@@ -25,6 +25,8 @@ model Deck {
   user      User     @relation(fields: [userId], references: [id])
   userId    String
   cards     Card[]
+
+  @@unique([userId, name], name: "UniqueDeckName")
 }
 
 model Card {
