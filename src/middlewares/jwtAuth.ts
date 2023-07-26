@@ -25,7 +25,7 @@ export const jwtAuth = (req: Request, res: Response, next: NextFunction) => {
     res.json({
       isOk: false,
       msg: "Session expired",
-      data: jwtToken,
+      data: [],
       wasUserLogged,
     });
   }
