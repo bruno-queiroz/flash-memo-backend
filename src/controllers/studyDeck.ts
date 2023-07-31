@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { prisma } from "../app";
-import { getCardsExpired } from "../utils/getCardsExpired";
 
 export const studyDeck = async (req: Request, res: Response) => {
   const { deckName } = req.params;
