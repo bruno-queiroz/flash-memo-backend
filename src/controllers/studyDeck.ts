@@ -8,12 +8,21 @@ export const studyDeck = async (req: Request, res: Response) => {
     const deck = await prisma.deck.findFirstOrThrow({
       where: { name: deckName },
       include: {
-        cards: true,
+        cards: {
+          where: {
+            reviewAt: {
+              lte: new Date(),
+            },
+          },
+        },
       },
     });
 
-    const expiredCards = deck?.cards.filter(getCardsExpired);
-    res.json({ isOk: true, msg: "Cards Found", data: expiredCards });
+    res.json({
+      isOk: true,
+      msg: "Cards Found",
+      data: deck?.cards,
+    });
   } catch (err) {
     res.json({ isOk: false, msg: "Something went wrong", data: null });
   }
