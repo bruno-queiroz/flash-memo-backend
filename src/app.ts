@@ -27,6 +27,7 @@ const port = process.env.PORT || 3000;
 const allowedUrls = ["http://localhost:5173", "https://flash-memo.vercel.app"];
 const corsOptions: CorsOptions = {
   origin: function (origin, callback) {
+    console.log("origin request:", origin);
     if (allowedUrls.indexOf(origin || "") !== -1) {
       callback(null, true);
     } else {
@@ -59,5 +60,5 @@ app.delete("/delete-deck/:deckId", jwtAuth, deleteDeck);
 app.delete("/delete-card/:cardId", jwtAuth, deleteCard);
 
 app.listen(port, () => {
-  console.log("running");
+  console.log("server running at port", port);
 });
