@@ -18,9 +18,18 @@ export const getDecks = async (req: Request, res: Response) => {
           include: {
             cards: {
               where: {
-                reviewAt: {
-                  lte: new Date(),
-                },
+                OR: [
+                  {
+                    reviewAt: {
+                      lte: new Date(),
+                    },
+                  },
+                  {
+                    reviewAt: {
+                      equals: null,
+                    },
+                  },
+                ],
               },
             },
           },
