@@ -23,6 +23,7 @@
     "@types/jsonwebtoken": "^9.0.2",
     "@types/node": "^18.16.3",
     "nodemon": "^2.0.22",
+    "supertest": "^6.3.3",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   }
