@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "test": "jest",
     "build": "npx tsc",
     "start": "node dist/app.js",
     "dev": "nodemon"
