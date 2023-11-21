@@ -5,7 +5,7 @@ export const studyDeck = async (req: Request, res: Response) => {
   const { deckName } = req.params;
   try {
     const deck = await prisma.deck.findFirstOrThrow({
-      where: { name: deckName },
+      where: { name: deckName, userId: req.body.userId },
       include: {
         cards: {
           where: {
