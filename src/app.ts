@@ -1,5 +1,5 @@
 import express from "express";
-import cors, { CorsOptions } from "cors";
+import cors from "cors";
 import { PrismaClient } from "@prisma/client";
 import { signUp } from "./controllers/signUp";
 import { signIn } from "./controllers/signIn";
@@ -18,24 +18,12 @@ import { deleteDeck } from "./controllers/deleteDeck";
 import { deleteCard } from "./controllers/deleteCard";
 import { getLogOut } from "./controllers/getLogOut";
 import { patchRenameDeck } from "./controllers/patchRenameDeck";
+import { corsOptions } from "./config/cors";
 dotenv.config();
 
 export const prisma = new PrismaClient();
 const app = express();
 const port = process.env.PORT || 3000;
-
-const allowedUrls = ["http://localhost:5173", "https://flash-memo.vercel.app"];
-const corsOptions: CorsOptions = {
-  origin: function (origin, callback) {
-    console.log("origin request:", origin);
-    if (allowedUrls.indexOf(origin || "") !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-};
 
 app.use(express.json());
 app.use(cors(corsOptions));
