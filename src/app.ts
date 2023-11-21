@@ -43,21 +43,21 @@ app.use(cookieParser());
 
 app.post("/sign-up", signUp);
 app.post("/sign-in", signIn);
-app.post("/create-deck", jwtAuth, postDeck);
-app.post("/create-card", jwtAuth, createCard);
+app.post("/deck", jwtAuth, postDeck);
+app.post("/card", jwtAuth, createCard);
 
-app.get("/get-decks", jwtAuth, getDecks);
-app.get("/study-deck/:deckName", jwtAuth, studyDeck);
-app.get("/search-cards/:deckId/:cardQuery", jwtAuth, searchCard);
-app.get("/get-single-card/:cardId", jwtAuth, getSingleCard);
-app.get("/get-log-out", getLogOut);
+app.get("/deck", jwtAuth, getDecks);
+app.get("/deck/:deckName", jwtAuth, studyDeck);
+app.get("/card/:deckId/:cardQuery", jwtAuth, searchCard);
+app.get("/card/:cardId", jwtAuth, getSingleCard);
+app.get("/log-out", getLogOut);
 
-app.patch("/patch-card-dates/:cardId", jwtAuth, patchCardDates);
-app.patch("/patch-card-content/:cardId", jwtAuth, patchCardContent);
-app.patch("/rename-deck/:deckId", jwtAuth, patchRenameDeck);
+app.patch("/card-date/:cardId", jwtAuth, patchCardDates);
+app.patch("/card-content/:cardId", jwtAuth, patchCardContent);
+app.patch("/deck/:deckId", jwtAuth, patchRenameDeck);
 
-app.delete("/delete-deck/:deckId", jwtAuth, deleteDeck);
-app.delete("/delete-card/:cardId", jwtAuth, deleteCard);
+app.delete("/deck/:deckId", jwtAuth, deleteDeck);
+app.delete("/card/:cardId", jwtAuth, deleteCard);
 
 app.listen(port, () => {
   console.log("server running at port", port);
