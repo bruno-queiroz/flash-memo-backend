@@ -19,34 +19,34 @@ import { deleteCard } from "./controllers/deleteCard";
 import { getLogOut } from "./controllers/getLogOut";
 import { patchRenameDeck } from "./controllers/patchRenameDeck";
 import { corsOptions } from "./config/cors";
+
 dotenv.config();
-
 export const prisma = new PrismaClient();
-const app = express();
-const port = process.env.PORT || 3000;
 
-app.use(express.json());
-app.use(cors(corsOptions));
-app.use(cookieParser());
+export default function () {
+  const app = express();
 
-app.post("/sign-up", signUp);
-app.post("/sign-in", signIn);
-app.post("/deck", jwtAuth, postDeck);
-app.post("/card", jwtAuth, createCard);
+  app.use(express.json());
+  app.use(cors(corsOptions));
+  app.use(cookieParser());
 
-app.get("/deck", jwtAuth, getDecks);
-app.get("/deck/:deckName", jwtAuth, studyDeck);
-app.get("/card/:deckId/:cardQuery", jwtAuth, searchCard);
-app.get("/card/:cardId", jwtAuth, getSingleCard);
-app.get("/log-out", getLogOut);
+  app.post("/sign-up", signUp);
+  app.post("/sign-in", signIn);
+  app.post("/deck", jwtAuth, postDeck);
+  app.post("/card", jwtAuth, createCard);
 
-app.patch("/card-date/:cardId", jwtAuth, patchCardDates);
-app.patch("/card-content/:cardId", jwtAuth, patchCardContent);
-app.patch("/deck/:deckId", jwtAuth, patchRenameDeck);
+  app.get("/deck", jwtAuth, getDecks);
+  app.get("/deck/:deckName", jwtAuth, studyDeck);
+  app.get("/card/:deckId/:cardQuery", jwtAuth, searchCard);
+  app.get("/card/:cardId", jwtAuth, getSingleCard);
+  app.get("/log-out", getLogOut);
 
-app.delete("/deck/:deckId", jwtAuth, deleteDeck);
-app.delete("/card/:cardId", jwtAuth, deleteCard);
+  app.patch("/card-date/:cardId", jwtAuth, patchCardDates);
+  app.patch("/card-content/:cardId", jwtAuth, patchCardContent);
+  app.patch("/deck/:deckId", jwtAuth, patchRenameDeck);
 
-app.listen(port, () => {
-  console.log("server running at port", port);
-});
+  app.delete("/deck/:deckId", jwtAuth, deleteDeck);
+  app.delete("/card/:cardId", jwtAuth, deleteCard);
+
+  return app;
+}
