@@ -23,7 +23,7 @@ import { corsOptions } from "./config/cors";
 dotenv.config();
 export const prisma = new PrismaClient();
 
-export default function () {
+export const createApp = () => {
   const app = express();
 
   app.use(express.json());
@@ -49,4 +49,4 @@ export default function () {
   app.delete("/card/:cardId", jwtAuth, deleteCard);
 
   return app;
-}
+};
