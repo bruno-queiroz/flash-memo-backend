@@ -20,19 +20,21 @@ export const createCard = async (req: Request, res: Response) => {
       },
     });
 
-    res.json({ isOk: true, msg: "Card Created", data: card });
+    res.status(201).json({ isOk: true, msg: "Card Created", data: card });
   } catch (err) {
     console.log(err);
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
       if (err.code === "P2002") {
-        res.json({
+        res.status(400).json({
           isOk: false,
           msg: "You already have this card",
           data: null,
         });
       }
     } else {
-      res.json({ isOk: false, msg: "Something went wrong", data: null });
+      res
+        .status(500)
+        .json({ isOk: false, msg: "Something went wrong", data: null });
     }
   }
 };
