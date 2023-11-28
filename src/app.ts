@@ -1,6 +1,5 @@
 import express from "express";
 import cors from "cors";
-import { PrismaClient } from "@prisma/client";
 import { signUp } from "./controllers/signUp";
 import { signIn } from "./controllers/signIn";
 import cookieParser from "cookie-parser";
@@ -21,7 +20,6 @@ import { patchRenameDeck } from "./controllers/patchRenameDeck";
 import { corsOptions } from "./config/cors";
 
 dotenv.config();
-export const prisma = new PrismaClient();
 
 export const createApp = () => {
   const app = express();
