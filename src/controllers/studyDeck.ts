@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { prisma } from "../app";
+import prisma from "../../lib/client";
 
 export const studyDeck = async (req: Request, res: Response) => {
   const { deckName } = req.params;

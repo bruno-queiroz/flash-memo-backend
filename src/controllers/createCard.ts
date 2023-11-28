@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { prisma } from "../app";
+import prisma from "../../lib/client";
 import { Prisma } from "@prisma/client";
 
 interface CardBodyRequest {
@@ -12,7 +12,7 @@ export const createCard = async (req: Request, res: Response) => {
   const newCardData: CardBodyRequest = req.body;
 
   try {
-    await prisma.card.create({
+    const card = await prisma.card.create({
       data: {
         front: newCardData?.front,
         back: newCardData?.back,
@@ -20,7 +20,7 @@ export const createCard = async (req: Request, res: Response) => {
       },
     });
 
-    res.json({ isOk: true, msg: "Card Created", data: null });
+    res.json({ isOk: true, msg: "Card Created", data: card });
   } catch (err) {
     console.log(err);
     if (err instanceof Prisma.PrismaClientKnownRequestError) {

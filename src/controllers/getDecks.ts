@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { prisma } from "../app";
+import prisma from "../../lib/client";
 import { countCardAmountGroups } from "../utils/countCardAmountGroups";
 
 export interface BodyRequest {
