@@ -22,7 +22,7 @@ export const createCard = async (req: Request, res: Response) => {
 
     res.status(201).json({ isOk: true, msg: "Card Created", data: card });
   } catch (err) {
-    console.log(err);
+    console.error("Error creating card", err);
 
     if (
       err instanceof Prisma.PrismaClientKnownRequestError &&
