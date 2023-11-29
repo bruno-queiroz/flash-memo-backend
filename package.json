@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "test": "jest",
+    "test": "jest --detectOpenHandles",
     "build": "npx tsc",
     "start": "node dist/server.js",
     "dev": "nodemon"
