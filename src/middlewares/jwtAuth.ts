@@ -22,7 +22,7 @@ export const jwtAuth = (req: Request, res: Response, next: NextFunction) => {
 
     next();
   } catch (err) {
-    res.json({
+    res.status(401).json({
       isOk: false,
       msg: "Session expired",
       data: [],
