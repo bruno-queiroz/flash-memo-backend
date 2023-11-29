@@ -26,7 +26,7 @@ describe("Create cards", () => {
     expect(response.body?.data).toMatchObject(card);
     expect(response.status).toBe(201);
   });
-  it("POST to /deck should an error response", async () => {
+  it("POST to /deck should return an error response", async () => {
     const cardCreatedMocked = prismaMock.card.create.mockRejectedValue(
       Prisma.PrismaClientKnownRequestError
     );
@@ -39,5 +39,14 @@ describe("Create cards", () => {
     expect(cardCreatedMocked.mock.calls).toHaveLength(1);
     expect(response.body?.isOk).toBe(false);
     expect(response.status).toBe(500);
+  });
+  it("POST to /deck without jwt token should return an error", async () => {
+    const response = await request(app)
+      .post("/card")
+      .set("Origin", allowedUrl)
+      .send();
+
+    expect(response.body?.isOk).toBe(false);
+    expect(response.status).toBe(401);
   });
 });
