@@ -36,7 +36,7 @@ describe("Testing deleteDeck controller", () => {
   });
   it("DELETE to /deck/:deckId without jwt token should return an error", async () => {
     const response = await request(app)
-      .post("/card")
+      .delete("/deck/123")
       .set("Origin", allowedUrl)
       .send();
 
