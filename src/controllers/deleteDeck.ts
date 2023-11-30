@@ -19,6 +19,7 @@ export const deleteDeck = async (req: Request, res: Response) => {
 
     res.status(200).json({ isOk: true, msg: "Deck deleted", data: null });
   } catch (err) {
+    console.error("Error deleting deck", err);
     res
       .status(500)
       .json({ isOk: false, msg: "Failed to delete deck", data: null });
