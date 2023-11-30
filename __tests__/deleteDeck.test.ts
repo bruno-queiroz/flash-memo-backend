@@ -34,4 +34,13 @@ describe("Testing deleteDeck controller", () => {
     expect(response.body?.isOk).toBe(false);
     expect(response.status).toBe(500);
   });
+  it("DELETE to /deck/:deckId without jwt token should return an error", async () => {
+    const response = await request(app)
+      .post("/card")
+      .set("Origin", allowedUrl)
+      .send();
+
+    expect(response.body?.isOk).toBe(false);
+    expect(response.status).toBe(401);
+  });
 });
