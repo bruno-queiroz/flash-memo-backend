@@ -17,8 +17,10 @@ export const deleteDeck = async (req: Request, res: Response) => {
       },
     });
 
-    res.json({ isOk: true, msg: "Deck deleted", data: null });
+    res.status(200).json({ isOk: true, msg: "Deck deleted", data: null });
   } catch (err) {
-    res.json({ isOk: false, msg: "Failed to delete deck", data: null });
+    res
+      .status(500)
+      .json({ isOk: false, msg: "Failed to delete deck", data: null });
   }
 };
