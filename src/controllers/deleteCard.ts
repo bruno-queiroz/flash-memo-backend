@@ -10,7 +10,7 @@ export const deleteCard = async (req: Request, res: Response) => {
 
     res.status(200).json({ isOk: true, msg: "Card deleted", data: null });
   } catch (err) {
-    console.log(err);
+    console.error("Error deleting card", err);
     res
       .status(500)
       .json({ isOk: false, msg: "Failed to delete card", data: null });
