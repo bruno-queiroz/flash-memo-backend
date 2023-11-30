@@ -8,9 +8,11 @@ export const deleteCard = async (req: Request, res: Response) => {
       where: { id: cardId },
     });
 
-    res.json({ isOk: true, msg: "Card deleted", data: null });
+    res.status(200).json({ isOk: true, msg: "Card deleted", data: null });
   } catch (err) {
     console.log(err);
-    res.json({ isOk: false, msg: "Failed to delete card", data: null });
+    res
+      .status(500)
+      .json({ isOk: false, msg: "Failed to delete card", data: null });
   }
 };
