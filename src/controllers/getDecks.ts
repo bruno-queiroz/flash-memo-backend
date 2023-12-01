@@ -48,6 +48,7 @@ export const getDecks = async (req: Request, res: Response) => {
       data: decksWithStatus,
     });
   } catch (err) {
+    console.error("Error getting decks", err);
     res
       .status(500)
       .json({ isOk: false, msg: "Something went wrong", data: null });
