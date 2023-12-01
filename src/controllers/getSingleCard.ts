@@ -10,7 +10,8 @@ export const getSingleCard = async (req: Request, res: Response) => {
     });
 
     res.status(200).json({ isOk: true, msg: "Card found", data: card });
-  } catch (errr) {
+  } catch (err) {
+    console.error("Error getting card", err);
     res.status(500).json({ isOk: false, msg: "Card not found", data: null });
   }
 };
