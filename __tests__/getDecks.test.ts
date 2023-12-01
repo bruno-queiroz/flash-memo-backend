@@ -24,4 +24,15 @@ describe("Testing getDecks controller", () => {
     expect(response.body?.data).toMatchObject(deckWithStatus);
     expect(response.status).toBe(200);
   });
+  it("GET to /deck should fail", async () => {
+    const mocked = prismaMock.user.findUnique.mockRejectedValue("");
+
+    const response = await request(app)
+      .get("/deck")
+      .set("Cookie", ["jwt-token=" + jwtToken])
+      .set("Origin", allowedUrl);
+
+    expect(mocked.mock.calls).toHaveLength(1);
+    expect(response.status).toBe(500);
+  });
 });
