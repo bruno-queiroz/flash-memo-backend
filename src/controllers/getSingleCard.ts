@@ -9,8 +9,8 @@ export const getSingleCard = async (req: Request, res: Response) => {
       where: { id: cardId },
     });
 
-    res.json({ isOk: true, msg: "Card found", data: card });
+    res.status(200).json({ isOk: true, msg: "Card found", data: card });
   } catch (errr) {
-    res.json({ isOk: false, msg: "Card not found", data: null });
+    res.status(500).json({ isOk: false, msg: "Card not found", data: null });
   }
 };
