@@ -42,12 +42,14 @@ export const getDecks = async (req: Request, res: Response) => {
       cards: countCardAmountGroups(deck?.cards),
     }));
 
-    res.json({
+    res.status(200).json({
       isOk: true,
       msg: "Queried Successfully",
       data: decksWithStatus,
     });
   } catch (err) {
-    res.json({ isOk: false, msg: "Something went wrong", data: null });
+    res
+      .status(500)
+      .json({ isOk: false, msg: "Something went wrong", data: null });
   }
 };
