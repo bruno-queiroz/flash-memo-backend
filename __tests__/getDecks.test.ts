@@ -35,4 +35,13 @@ describe("Testing getDecks controller", () => {
     expect(mocked.mock.calls).toHaveLength(1);
     expect(response.status).toBe(500);
   });
+  it("GET to /deck without jwt token should return an error", async () => {
+    const response = await request(app)
+      .get("/deck")
+      .set("Origin", allowedUrl)
+      .send();
+
+    expect(response.body?.isOk).toBe(false);
+    expect(response.status).toBe(401);
+  });
 });
