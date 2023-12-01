@@ -8,5 +8,5 @@ export const getLogOut = async (req: Request, res: Response) => {
     secure: true,
   });
 
-  res.json({ isOk: true, msg: "User Logged out", data: null });
+  res.status(200).json({ isOk: true, msg: "User Logged out", data: null });
 };
