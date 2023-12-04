@@ -20,11 +20,11 @@ export const patchCardContent = async (req: Request, res: Response) => {
       data: newCardContent,
     });
 
-    res.json({ isOk: true, msg: "Card edited", data: cardEdited });
+    res.status(200).json({ isOk: true, msg: "Card edited", data: cardEdited });
   } catch (err) {
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
       if (err.code === "P2002") {
-        res.json({
+        res.status(400).json({
           isOk: false,
           msg: "You already have this card",
           data: null,
@@ -32,7 +32,7 @@ export const patchCardContent = async (req: Request, res: Response) => {
       }
       return;
     }
-    res.json({
+    res.status(500).json({
       isOk: false,
       msg: "Something went wrong editing the card",
       data: null,
