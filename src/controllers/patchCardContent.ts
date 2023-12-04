@@ -15,12 +15,12 @@ export const patchCardContent = async (req: Request, res: Response) => {
 
   const newCardContent = { front, back };
   try {
-    await prisma.card.update({
+    const cardEdited = await prisma.card.update({
       where: { id: cardId },
       data: newCardContent,
     });
 
-    res.json({ isOk: true, msg: "Card edited", data: null });
+    res.json({ isOk: true, msg: "Card edited", data: cardEdited });
   } catch (err) {
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
       if (err.code === "P2002") {
@@ -34,7 +34,7 @@ export const patchCardContent = async (req: Request, res: Response) => {
     }
     res.json({
       isOk: false,
-      msg: "Something went wrong editting the card",
+      msg: "Something went wrong editing the card",
       data: null,
     });
   }
