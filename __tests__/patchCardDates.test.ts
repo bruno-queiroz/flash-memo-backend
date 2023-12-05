@@ -32,4 +32,13 @@ describe("Testing patchCardDates controller", () => {
     expect(response.body?.isOk).toBe(false);
     expect(response.status).toBe(500);
   });
+  it("PATCH to /card-date/:cardId without jwt token should fail", async () => {
+    const response = await request(app)
+      .patch("/card-date/123")
+      .set("Origin", allowedUrl)
+      .send();
+
+    expect(response.body?.isOk).toBe(false);
+    expect(response.status).toBe(401);
+  });
 });
