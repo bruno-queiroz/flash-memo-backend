@@ -20,18 +20,21 @@ export const postDeck = async (req: Request, res: Response) => {
       .status(200)
       .json({ isOk: true, msg: "Deck Created Successfully", data: deck });
   } catch (err) {
-    if (err instanceof Prisma.PrismaClientKnownRequestError) {
-      if (err.code === "P2002") {
-        res.status(400).json({
-          isOk: false,
-          msg: "You already have a deck with this name",
-          data: null,
-        });
-      }
-    } else {
-      res
-        .status(500)
-        .json({ isOk: false, msg: "Something went wrong", data: null });
+    console.error("Error creating deck", err);
+    if (
+      err instanceof Prisma.PrismaClientKnownRequestError &&
+      err.code === "P2002"
+    ) {
+      res.status(400).json({
+        isOk: false,
+        msg: "You already have a deck with this name",
+        data: null,
+      });
+      return;
     }
+
+    res
+      .status(500)
+      .json({ isOk: false, msg: "Something went wrong", data: null });
   }
 };
