@@ -23,14 +23,18 @@ export const patchRenameDeck = async (req: Request, res: Response) => {
 
     res.status(200).json({ isOk: true, msg: "Deck Name Edited", data: null });
   } catch (err) {
-    if (err instanceof Prisma.PrismaClientKnownRequestError) {
-      if (err.code === "P2002") {
-        res.status(400).json({
-          isOk: false,
-          msg: "You already have a Deck with this name",
-          data: null,
-        });
-      }
+    console.error("Error renaming deck", err);
+
+    if (
+      err instanceof Prisma.PrismaClientKnownRequestError &&
+      err.code === "P2002"
+    ) {
+      res.status(400).json({
+        isOk: false,
+        msg: "You already have a Deck with this name",
+        data: null,
+      });
+
       return;
     }
 
