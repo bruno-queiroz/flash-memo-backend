@@ -4,7 +4,6 @@ import { Prisma } from "@prisma/client";
 
 interface DeckBodyRequest {
   deckName: string;
-  password: string;
   userName: string;
   userId: string;
 }
@@ -13,13 +12,13 @@ export const postDeck = async (req: Request, res: Response) => {
   const userNewDeckData: DeckBodyRequest = req.body;
 
   try {
-    await prisma.deck.create({
+    const deck = await prisma.deck.create({
       data: { name: userNewDeckData.deckName, userId: userNewDeckData.userId },
     });
 
     res
       .status(200)
-      .json({ isOk: true, msg: "Deck Created Successfully", data: null });
+      .json({ isOk: true, msg: "Deck Created Successfully", data: deck });
   } catch (err) {
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
       if (err.code === "P2002") {
