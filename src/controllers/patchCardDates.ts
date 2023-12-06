@@ -29,6 +29,7 @@ export const patchCardDates = async (req: Request, res: Response) => {
       data: null,
     });
   } catch (err) {
+    console.error("Error patching card dates", err);
     res
       .status(500)
       .json({ isOk: false, msg: "Failed to patch dates", data: null });
