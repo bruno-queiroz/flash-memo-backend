@@ -52,4 +52,13 @@ describe("Testing patchRenameDeck controller", () => {
     expect(response.body?.isOk).toBe(false);
     expect(response.status).toBe(400);
   });
+  it("PATCH to /deck/:deckId without jwt token should fail", async () => {
+    const response = await request(app)
+      .patch("/deck/123")
+      .set("Origin", allowedUrl)
+      .send();
+
+    expect(response.body?.isOk).toBe(false);
+    expect(response.status).toBe(401);
+  });
 });
