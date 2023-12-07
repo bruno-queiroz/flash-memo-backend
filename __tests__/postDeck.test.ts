@@ -53,4 +53,13 @@ describe("Testing postDeck controller", () => {
     expect(response.body?.isOk).toBe(false);
     expect(response.status).toBe(400);
   });
+  it("POST to /deck without jwt token should fail", async () => {
+    const response = await request(app)
+      .post("/deck")
+      .set("Origin", allowedUrl)
+      .send();
+
+    expect(response.body?.isOk).toBe(false);
+    expect(response.status).toBe(401);
+  });
 });
