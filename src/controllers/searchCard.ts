@@ -22,9 +22,9 @@ export const searchCard = async (req: Request, res: Response) => {
       },
     });
 
-    res.json({ isOk: true, msg: "Card found", data: cards });
+    res.status(200).json({ isOk: true, msg: "Card found", data: cards });
   } catch (err) {
-    console.log(err);
-    res.json({ isOk: false, msg: "Card not found", data: null });
+    console.error("Error finding card", err);
+    res.status(400).json({ isOk: false, msg: "Card not found", data: null });
   }
 };
