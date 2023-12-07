@@ -31,4 +31,12 @@ describe("Testing searchCard controller", () => {
     expect(response.body?.isOk).toBe(false);
     expect(response.status).toBe(400);
   });
+  it("GET to /card/:deckId/:cardQuery without jwt token should fail", async () => {
+    const response = await request(app)
+      .get("/card/123/a")
+      .set("Origin", allowedUrl);
+
+    expect(response.body?.isOk).toBe(false);
+    expect(response.status).toBe(401);
+  });
 });
