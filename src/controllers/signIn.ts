@@ -23,7 +23,9 @@ export const signIn = async (req: Request, res: Response) => {
     );
 
     if (!matchUserPassword) {
-      res.json({ isOk: false, msg: "Password Incorrect", data: null });
+      res
+        .status(400)
+        .json({ isOk: false, msg: "Password Incorrect", data: null });
       return;
     }
 
@@ -42,13 +44,13 @@ export const signIn = async (req: Request, res: Response) => {
       secure: true,
     });
 
-    res.json({
+    res.status(200).json({
       isOk: true,
       msg: "Logged to user account",
       data: { name: userFoundOnDatabase.name, id: userFoundOnDatabase.id },
     });
   } catch (err) {
     console.error("Error signing in user", err);
-    res.json({ isOk: false, msg: "User not found", data: null });
+    res.status(400).json({ isOk: false, msg: "User not found", data: null });
   }
 };
