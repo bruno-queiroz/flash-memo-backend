@@ -31,4 +31,20 @@ describe("Testing signIn controller", () => {
     expect(response.body?.isOk).toBe(true);
     expect(response.status).toBe(200);
   });
+  it("POST to /sign-in should fail when password is incorrect", async () => {
+    const mocked = prismaMock.user.findUniqueOrThrow.mockResolvedValue(
+      user as any
+    );
+
+    jestMocked(bcrypt).compare.mockResolvedValue(false as never);
+
+    const response = await request(app)
+      .post("/sign-in")
+      .set("Origin", allowedUrl)
+      .send({ name: "jubi", password: "123" });
+
+    expect(mocked.mock.calls).toHaveLength(1);
+    expect(response.body?.isOk).toBe(false);
+    expect(response.status).toBe(400);
+  });
 });
