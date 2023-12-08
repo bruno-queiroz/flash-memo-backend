@@ -2,7 +2,6 @@ import request from "supertest";
 import { createApp } from "../src/app";
 import { jest } from "@jest/globals";
 import { allowedUrl } from "./mocks/allowedUrl";
-import { generateJwtToken } from "./mocks/generateJwtToken";
 import { prismaMock } from "./mocks/singleton";
 import { user } from "./mocks/user";
 import { mocked as jestMocked } from "jest-mock";
