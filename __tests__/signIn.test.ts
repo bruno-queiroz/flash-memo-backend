@@ -11,7 +11,6 @@ import bcrypt from "bcrypt";
 jest.mock("bcrypt");
 
 const app = createApp();
-const jwtToken = generateJwtToken();
 
 describe("Testing signIn controller", () => {
   afterEach(() => {
@@ -53,6 +52,23 @@ describe("Testing signIn controller", () => {
       .send({ name: "jubi", password: "123" });
 
     expect(bcryptMocked.mock.calls).toHaveLength(1);
+    expect(mocked.mock.calls).toHaveLength(1);
+    expect(response.body?.isOk).toBe(false);
+    expect(response.status).toBe(400);
+  });
+  it("POST to /sign-in should fail and return fail response", async () => {
+    const mocked = prismaMock.user.findUniqueOrThrow.mockRejectedValue("");
+
+    const bcryptMocked = jestMocked(bcrypt).compare.mockResolvedValue(
+      true as never
+    );
+
+    const response = await request(app)
+      .post("/sign-in")
+      .set("Origin", allowedUrl)
+      .send({ name: "jubi", password: "123" });
+
+    expect(bcryptMocked.mock.calls).toHaveLength(0);
     expect(mocked.mock.calls).toHaveLength(1);
     expect(response.body?.isOk).toBe(false);
     expect(response.status).toBe(400);
