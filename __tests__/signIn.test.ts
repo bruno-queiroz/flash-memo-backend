@@ -14,18 +14,25 @@ const app = createApp();
 const jwtToken = generateJwtToken();
 
 describe("Testing signIn controller", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("POST to /sign-in should be successful", async () => {
     const mocked = prismaMock.user.findUniqueOrThrow.mockResolvedValue(
       user as any
     );
 
-    jestMocked(bcrypt).compare.mockResolvedValue(true as never);
+    const bcryptMocked = jestMocked(bcrypt).compare.mockResolvedValue(
+      true as never
+    );
 
     const response = await request(app)
       .post("/sign-in")
       .set("Origin", allowedUrl)
       .send({ name: "jubi", password: "123" });
 
+    expect(bcryptMocked.mock.calls).toHaveLength(1);
     expect(mocked.mock.calls).toHaveLength(1);
     expect(response.body?.data).toMatchObject({ name: user.name, id: user.id });
     expect(response.body?.isOk).toBe(true);
@@ -36,13 +43,16 @@ describe("Testing signIn controller", () => {
       user as any
     );
 
-    jestMocked(bcrypt).compare.mockResolvedValue(false as never);
+    const bcryptMocked = jestMocked(bcrypt).compare.mockResolvedValue(
+      false as never
+    );
 
     const response = await request(app)
       .post("/sign-in")
       .set("Origin", allowedUrl)
       .send({ name: "jubi", password: "123" });
 
+    expect(bcryptMocked.mock.calls).toHaveLength(1);
     expect(mocked.mock.calls).toHaveLength(1);
     expect(response.body?.isOk).toBe(false);
     expect(response.status).toBe(400);
