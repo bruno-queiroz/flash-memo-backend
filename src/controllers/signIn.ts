@@ -48,6 +48,7 @@ export const signIn = async (req: Request, res: Response) => {
       data: { name: userFoundOnDatabase.name, id: userFoundOnDatabase.id },
     });
   } catch (err) {
+    console.error("Error signing in user", err);
     res.json({ isOk: false, msg: "User not found", data: null });
   }
 };
