@@ -33,7 +33,7 @@ export const signUp = async (req: Request, res: Response) => {
       secure: true,
     });
 
-    res.json({
+    res.status(200).json({
       isOk: true,
       msg: "User Created",
       data: { name: newUser.name, id: newUser.id },
@@ -41,7 +41,7 @@ export const signUp = async (req: Request, res: Response) => {
   } catch (err) {
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
       if (err.code === "P2002") {
-        res.json({
+        res.status(400).json({
           isOk: false,
           msg: "Name must be unique",
           data: null,
@@ -50,7 +50,7 @@ export const signUp = async (req: Request, res: Response) => {
       return;
     }
 
-    res.json({
+    res.status(500).json({
       isOk: false,
       msg: "User not Created, something went wrong",
       data: null,
