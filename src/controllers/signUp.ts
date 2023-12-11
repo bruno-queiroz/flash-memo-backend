@@ -39,6 +39,7 @@ export const signUp = async (req: Request, res: Response) => {
       data: { name: newUser.name, id: newUser.id },
     });
   } catch (err) {
+    console.error("Error signing up user", err);
     if (
       err instanceof Prisma.PrismaClientKnownRequestError &&
       err.code === "P2002"
