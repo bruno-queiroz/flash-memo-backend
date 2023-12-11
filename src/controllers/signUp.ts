@@ -33,7 +33,11 @@ export const signUp = async (req: Request, res: Response) => {
       secure: true,
     });
 
-    res.json({ isOk: true, msg: "User Created", data: null });
+    res.json({
+      isOk: true,
+      msg: "User Created",
+      data: { name: newUser.name, id: newUser.id },
+    });
   } catch (err) {
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
       if (err.code === "P2002") {
