@@ -39,14 +39,15 @@ export const signUp = async (req: Request, res: Response) => {
       data: { name: newUser.name, id: newUser.id },
     });
   } catch (err) {
-    if (err instanceof Prisma.PrismaClientKnownRequestError) {
-      if (err.code === "P2002") {
-        res.status(400).json({
-          isOk: false,
-          msg: "Name must be unique",
-          data: null,
-        });
-      }
+    if (
+      err instanceof Prisma.PrismaClientKnownRequestError &&
+      err.code === "P2002"
+    ) {
+      res.status(400).json({
+        isOk: false,
+        msg: "Name must be unique",
+        data: null,
+      });
       return;
     }
 
