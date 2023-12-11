@@ -12,6 +12,10 @@ jest.mock("bcrypt");
 const app = createApp();
 
 describe("Testing signUp controller", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("POST to /sign-up should be successful", async () => {
     const mocked = prismaMock.user.create.mockResolvedValue(user as any);
 
@@ -27,5 +31,20 @@ describe("Testing signUp controller", () => {
     expect(response.body?.data).toMatchObject({ name: user.name, id: user.id });
     expect(response.body?.isOk).toBe(true);
     expect(response.status).toBe(200);
+  });
+  it("POST to /sign-up should fail and return fail response", async () => {
+    const mocked = prismaMock.user.create.mockResolvedValue("" as any);
+
+    const bcryptMocked = jestMocked(bcrypt).hash.mockRejectedValue("" as never);
+
+    const response = await request(app)
+      .post("/sign-up")
+      .set("Origin", allowedUrl)
+      .send({ name: "jubi", password: "123" });
+
+    expect(bcryptMocked.mock.calls).toHaveLength(1);
+    expect(mocked.mock.calls).toHaveLength(0);
+    expect(response.body?.isOk).toBe(false);
+    expect(response.status).toBe(500);
   });
 });
