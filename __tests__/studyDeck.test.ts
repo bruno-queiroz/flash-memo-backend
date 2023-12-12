@@ -35,4 +35,12 @@ describe("Testing studyDeck controller", () => {
     expect(response?.body.isOk).toBe(false);
     expect(response.status).toBe(400);
   });
+  it("GET to /deck/:deckName without jwt token should fail", async () => {
+    const response = await request(app)
+      .get("/deck/deck")
+      .set("Origin", allowedUrl);
+
+    expect(response.body?.isOk).toBe(false);
+    expect(response.status).toBe(401);
+  });
 });
