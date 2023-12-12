@@ -26,12 +26,14 @@ export const studyDeck = async (req: Request, res: Response) => {
       },
     });
 
-    res.json({
+    res.status(200).json({
       isOk: true,
       msg: "Cards Found",
       data: deck?.cards,
     });
   } catch (err) {
-    res.json({ isOk: false, msg: "Something went wrong", data: null });
+    res
+      .status(400)
+      .json({ isOk: false, msg: "Something went wrong", data: null });
   }
 };
