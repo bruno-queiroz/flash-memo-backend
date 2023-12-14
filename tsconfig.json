@@ -1,4 +1,9 @@
 {
+  "exclude": ["./dist/**/*", "__tests__", "./jest.config.js"],
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true
+  },
   "compilerOptions": {
     "target": "es2016",
     "module": "CommonJS",
